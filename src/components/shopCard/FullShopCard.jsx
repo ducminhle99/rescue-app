@@ -1,7 +1,9 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Chip } from 'react-native-paper';
+import { AirbnbRating } from 'react-native-ratings';
 import colors from '../../constant/colors';
+import { IMAGE_URL } from '../../constant/const';
 
 const { height, width } = Dimensions.get("screen");
 const width_card = width;
@@ -20,18 +22,29 @@ const FullShopCard = (props) => {
             >
                 {(shopData.imageUrl === "")
                     ? (<Image source={require('../../../assets/avatar.jpg')} style={styles.avatar} />)
-                    : (<Image source={{ uri: shopData.imageUrl }} style={styles.avatar} />)
+                    : (<Image source={{ uri: IMAGE_URL + shopData.imageUrl }} style={styles.avatar} />)
                 }
                 <View style={styles.info_group}>
                     <Text style={styles.title}>{shopData.name}</Text>
                     <Text style={styles.address} numberOfLines={3}>{shopData.address.name}</Text>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', paddingTop: 5, maxHeight: 75, overflow: 'hidden' }}>
-                        <Chip icon="apple" textStyle={{ fontSize: 10 }} style={{ height: 20, justifyContent: 'center', alignItems: 'center', marginVertical: 2 }} mode='outlined' onPress={() => console.log('Pressed')}>cu ho xe oto</Chip>
-                        <Chip icon="information" textStyle={{ fontSize: 10 }} style={{ height: 20, justifyContent: 'center', alignItems: 'center', marginVertical: 2 }} mode='outlined' onPress={() => console.log('Pressed')}>sua chua xe</Chip>
-                        <Chip icon="car" textStyle={{ fontSize: 10 }} style={{ height: 20, justifyContent: 'center', alignItems: 'center', marginVertical: 2 }} mode='outlined' onPress={() => console.log('Pressed')}>bao duong xe</Chip>
+                        {shopData.categories.map(cat => (
+                            <Chip key={cat.id} textStyle={{ fontSize: 10 }} style={{ height: 20, justifyContent: 'center', alignItems: 'center', marginVertical: 2 }} mode='outlined' onPress={() => console.log('Pressed')}>{cat.catName}</Chip>
+                        ))
+                        }
                     </View>
                     <Text style={styles.phone}>{shopData.phone}</Text>
                     <Text style={styles.distance}>{shopData.distance} Km</Text>
+
+                    <View style={styles.rating}>
+                        <AirbnbRating
+                            isDisabled={true}
+                            reviews={false}
+                            count={5}
+                            defaultRating={shopData.rating}
+                            size={20}
+                        />
+                    </View>
                 </View>
             </TouchableOpacity>
         </View>
@@ -89,6 +102,13 @@ const styles = StyleSheet.create({
         bottom: 10,
         right: 5,
         color: 'red'
+    },
+    rating: {
+        width: '100%',
+        position: 'absolute',
+        bottom: 40,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

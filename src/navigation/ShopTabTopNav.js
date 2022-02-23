@@ -2,14 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { rescueApi } from '../api/rescueApi';
+import { AirbnbRating } from 'react-native-ratings';
+import { Divider } from 'react-native-paper';
 import Service from '../components/shop/Service'
 const Tab = createMaterialTopTabNavigator();
 function About(props) {
-    const { data } = props;
+    const { data, rating } = props;
     return (
         <View >
             <ScrollView nestedScrollEnabled={true} style={styles.about}>
-                <Text style={styles.text}>{data}</Text>
+                <Text>{data}</Text>
+                <Divider />
+                <Text style={{ fontSize: 18, }}>Đánh giá</Text>
+                <AirbnbRating
+                    isDisabled={true}
+                    reviews={false}
+                    count={5}
+                    defaultRating={rating}
+                    size={20}
+                />
             </ScrollView>
         </View>
     );
@@ -17,7 +28,7 @@ function About(props) {
 
 function Services(props) {
     const { data } = props
-    // console.log(data);
+
     return (
 
         <ScrollView
@@ -46,11 +57,10 @@ const ShopTabTopNav = (props) => {
     return (
         <Tab.Navigator>
             <Tab.Screen name="About"
-
                 options={{
                     title: "Giới thiệu"
                 }}>
-                {() => <About data={data.about} />}
+                {() => <About data={data.about} rating={data.rating} />}
             </Tab.Screen>
             <Tab.Screen name="Services"
                 options={{

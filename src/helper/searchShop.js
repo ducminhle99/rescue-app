@@ -29,10 +29,12 @@ const removeVietnameseTones = (str) => {
 }
 
 export const searchListShop = (listShop, keyword) => {
+
     var query = removeVietnameseTones(keyword.toLowerCase());
+
     return listShop.filter((shop) => {
         if (removeVietnameseTones(shop.name.toLowerCase()).indexOf(query) >= 0) return shop;
-        if (removeVietnameseTones(shop.address.name.toLowerCase()).indexOf(query) >= 0) return shop;
+        if ((shop.address.name) != null && removeVietnameseTones(shop.address.name.toLowerCase()).indexOf(query) >= 0) return shop;
     })
 }
 export const searchByCategory = (listShop, catId) => {

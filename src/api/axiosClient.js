@@ -12,7 +12,6 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
     const token = await getLocalAccessToken();
-    // console.log(token)
     if (token) {
         config.headers["x-access-token"] = token.authToken;
     }

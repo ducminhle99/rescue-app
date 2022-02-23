@@ -5,8 +5,7 @@ import getCurrentLocation from '../../helper/location';
 
 
 const Map = (props) => {
-    const { clickCallout, rescue, shopList, navigation } = props;
-
+    const { shopList, navigation } = props;
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
     useEffect(() => {
@@ -35,7 +34,6 @@ const Map = (props) => {
                 >
                     {
                         shopList.map((data) => {
-
                             const id = data.id
                             return (
                                 <Marker
@@ -68,20 +66,7 @@ const Map = (props) => {
                             title='your position'
                             description='your curent location'
                         ></Marker>
-
                     </Marker>
-                    {(rescue) ? (<Circle center={{
-                        latitude: Region.latitude,
-                        longitude: Region.longitude,
-                    }}
-                        radius={10000}
-                        strokeColor="#FF0000"
-                        strokeOpacity={0.8}
-                        strokeWidth={2}
-                        fillColor='rgba(255, 0, 0, 0.1)'
-                    />) : (<></>)}
-
-
                 </MapView>
             }
 

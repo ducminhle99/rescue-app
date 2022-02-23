@@ -1,17 +1,15 @@
 import { AntDesign, Feather } from '@expo/vector-icons';
-import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import * as Notifications from 'expo-notifications';
+import React, { useEffect, useCallback } from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SliderBox } from 'react-native-image-slider-box';
 import { Button, Card } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { rescueApi } from '../../api/rescueApi';
 import ListRepairShop from '../../components/shopCard/ListRepairShop';
-import { getLocalAccessToken } from '../../redux/localStorage';
-import { setRepairShop } from '../../redux/shopSlice'
-
+import phoneCall from '../../helper/phoneCall';
+import { setRepairShop } from '../../redux/shopSlice';
 const images = [
     'https://hyundainguyengiaphat.vn/upload/images/xe-sua-chua-luu-dong.jpg',
     'https://top1danang.com/StoreData/files/hoc-sua-chua-o-to-o-da-nang.jpg',
@@ -25,14 +23,29 @@ const HomeScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const shopList = useSelector(state => state.repairShop);
     const location = useSelector(state => state.location);
-    useEffect(() => {
-        const fetchListShop = async () => {
-            const list = await rescueApi.fetchShop();
-            const action = setRepairShop({ list, location });
-            dispatch(action);
-        }
-        fetchListShop();
-    }, [])
+    Notifications.addNotificationResponseReceivedListener(noti => {
+        console.log(noti.notification.date);
+        navigation.navigate('noti')
+    })
+    useFocusEffect(
+        useCallback(() => {
+            const fetchListShop = async () => {
+                const list = await rescueApi.fetchShop();
+                const action = setRepairShop({ list, location });
+                dispatch(action);
+            }
+            fetchListShop();
+            console.log('home screen')
+        }, [])
+    )
+    // useEffect(() => {
+    //     const fetchListShop = async () => {
+    //         const list = await rescueApi.fetchShop();
+    //         const action = setRepairShop({ list, location });
+    //         dispatch(action);
+    //     }
+    //     fetchListShop();
+    // }, [])
     const pressCard = (id) => {
         navigation.navigate('ShopDetail', { id })
     }
@@ -68,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
 
                         <View style={styles.card}>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('profile')}>
+                                onPress={() => navigation.navigate('Appoint')}>
                                 <Card.Cover source={{ uri: 'https://cdn.canhco.net/files/2020/01/1_zing-2.jpg' }} style={styles.card_image} />
                                 <Text style={styles.card_title}>Lịch hẹn dịch vụ</Text>
                             </TouchableOpacity>
@@ -79,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('profile')}>
                                 <Card.Cover source={{ uri: 'https://carwow-uk-wp-3.imgix.net/Volvo-XC40-white-scaled.jpg' }} style={styles.card_image} />
-                                <Text style={styles.card_title}>Xe của tôi</Text>
+                                <Text style={styles.card_title}>Thông tin cá nhân</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -97,7 +110,7 @@ const HomeScreen = ({ navigation }) => {
                         <View style={styles.footer}>
                             <View style={styles.contact}>
                                 <Button mode='outlined' style={styles.contact_btn}
-                                    onPress={() => alert('call')}
+                                    onPress={() => phoneCall('03365997')}
                                 >
                                     <Feather name="phone-call" size={16} color="black" />
                                     <Text>03365997</Text>
@@ -105,7 +118,7 @@ const HomeScreen = ({ navigation }) => {
                                 <AntDesign name="facebook-square" size={24} color="black" style={styles.contact_icon} />
                                 <AntDesign name="google" size={24} color="black" style={styles.contact_icon} />
                             </View>
-                            <Text style={styles.footer_tilte}>Copyright<AntDesign name="copyright" size={14} color="black" /> 2022 ducminh. All rights reserved!</Text>
+                            <Text style={styles.footer_tilte}>Cứu Hộ 24 <AntDesign name="copyright" size={14} color="black" /> 2022 ducminh !</Text>
                         </View>
                     </View>
                 </View>

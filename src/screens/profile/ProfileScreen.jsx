@@ -18,7 +18,7 @@ const ProfileScreen = ({ navigation }) => {
         navigation.replace('SplashScreen')
     }
 
-    console.log(user);
+    // console.log(user);
     return (
         <View style={styles.container}>
             <StatusBar style='auto' />
@@ -56,16 +56,16 @@ const ProfileScreen = ({ navigation }) => {
                         <Item title={user.fullName} />
                         <Item title={user.phone} />
                         <Item title={user.email} lastItem={true} />
-                        {/* <Item title="123/nguyen van an/ lien chieu / da nang" lastItem={true} /> */}
+
                     </View>
                 </View>
-                <View style={{ marginBottom: 20 }}>
+                {/* <View style={{ marginBottom: 20 }}>
                     <Text style={styles.title_group}>thông tin xe</Text>
                     <View style={styles.info_container} >
                         <Item title='Xe của tôi' pressItem={() => navigation.navigate('NewCarScreen')} />
                         <Item title='Lịch sử sửa chữa' pressItem={() => alert('lich su sua chua')} lastItem={true} />
                     </View>
-                </View>
+                </View> */}
 
                 <View style={{ marginBottom: 20 }}>
                     <Text style={styles.title_group}>cài đặt</Text>

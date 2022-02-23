@@ -37,14 +37,14 @@ const RegisterScreen = ({ navigation }) => {
                 email: email,
                 notificationToken: notiToken
             }
-            console.log(body);
+            // console.log(body);
             try {
                 const res = await rescueApi.register(body)
-                console.log(res);
+                // console.log(res);
                 alert('Đăng ký thành công, kiểm tra email của bạn');
                 navigation.push('LoginScreen')
             } catch (err) {
-                alert(err.message)
+                console.log(err.message)
             }
         }
         registerFunc();

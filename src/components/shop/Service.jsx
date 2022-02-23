@@ -8,7 +8,11 @@ const Service = (props) => {
         <View style={styles.container}>
             <Text style={styles.name}>{service.name}</Text>
             <Text style={styles.description}>{service.description}</Text>
-            <Text style={styles.price}>Giá: {service.price} đ</Text>
+            {(service.price)
+                ? (<Text style={styles.price}>Giá: {service.price} đ</Text>)
+                : (<Text style={styles.price}>Giá: liên hệ</Text>)
+            }
+
         </View>
     );
 };

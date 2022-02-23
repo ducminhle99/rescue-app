@@ -1,30 +1,39 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, Modal } from 'react-native-paper';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import CustomModal from '../../components/CustomModal';
+import { rescueApi } from '../../api/rescueApi';
 import Map from '../../components/map/Map';
+import SosButton from '../../components/rescue/SosButton';
 
 const RescueScreen = ({ navigation }) => {
     const shopList = useSelector(state => state.repairShop);
-    const [visible, setVisible] = useState(false);
-    const [rescue, setRescue] = useState(false);
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
-    const sendRescue = () => {
-        setRescue(true);
-        hideModal();
+    const currenLocation = useSelector(state => state.location);
+    const Sos = async () => {
+        const shops = shopList.slice(0, 5);
+        const listId = shops.map(a => a.id)
+        try {
+            await rescueApi.createListRescue({
+                "title": "Cứu hộ",
+                "description": "Cứu hộ khẩn cấp",
+                "location": {
+                    "latitude": currenLocation.coords.latitude,
+                    "longitude": currenLocation.coords.longitude,
+                    "name": " "
+                },
+                "shops": listId
+            })
+            alert('Đã gửi thông báo đến các cơ sở gần nhất!')
+
+        } catch (error) {
+            console.log(error)
+        }
     }
-    const containerStyle = { backgroundColor: 'white', padding: 20, marginHorizontal: 10, borderRadius: 10 };
+
     return (
         <View style={styles.container}>
-            <Map shopList={shopList} style={styles.map} rescue={rescue} navigation={navigation} />
+            <Map shopList={shopList} style={styles.map} navigation={navigation} />
             <View style={styles.header}>
-                <Button
-                    onPress={showModal}
-                    style={styles.btn} mode='outlined'
-                ><Text>gọi cứu hộ</Text>
-                </Button>
                 <Button
                     onPress={() => navigation.push('RescueList')}
                     style={styles.btn}
@@ -32,9 +41,12 @@ const RescueScreen = ({ navigation }) => {
                 ><Text>danh sách</Text>
                 </Button>
             </View>
-            <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-                <CustomModal sendRescue={() => sendRescue()} />
-            </Modal>
+            <View style={styles.sos} >
+                <TouchableOpacity onPress={Sos}>
+                    <SosButton />
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 };
@@ -47,7 +59,7 @@ const styles = StyleSheet.create({
     },
     header: {
         position: 'absolute',
-        top: 50,
+        top: 40,
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginHorizontal: 30,
@@ -62,5 +74,10 @@ const styles = StyleSheet.create({
         flex: 1,
         borderWidth: 0,
         borderRadius: 30,
+    },
+    sos: {
+        position: 'absolute',
+        right: 0,
+        bottom: 60
     }
 });

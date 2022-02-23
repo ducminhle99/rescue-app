@@ -1,3 +1,4 @@
+import { BASE_URL } from "../constant/const";
 import { getLocalAccessToken } from "../redux/localStorage";
 
 const getFileInfo = (uri) => {
@@ -28,7 +29,7 @@ export const uploadFile = async (formData) => {
     const data = getDataToUpload(formData);
     const token = await getLocalAccessToken();
     try {
-        let response = await fetch('http://192.168.1.4:5000/api/test/img', {
+        let response = await fetch(BASE_URL + '/test/img', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',

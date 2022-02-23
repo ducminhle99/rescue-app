@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import colors from '../../constant/colors';
+import { IMAGE_URL } from '../../constant/const';
 
 const MiniShopCard = (props) => {
     const { shopData, pressCard } = props;
@@ -10,7 +11,7 @@ const MiniShopCard = (props) => {
         >
             {(shopData.imageUrl === "")
                 ? (<Image source={require('../../../assets/avatar.jpg')} style={styles.avatar} />)
-                : (<Image source={{ uri: shopData.imageUrl }} style={styles.avatar} />)
+                : (<Image source={{ uri: IMAGE_URL + shopData.imageUrl }} style={styles.avatar} />)
             }
             <View style={styles.info_group}>
                 <Text style={styles.title}>{shopData.name}</Text>
@@ -18,6 +19,7 @@ const MiniShopCard = (props) => {
                 <Text style={styles.phone}>{shopData.phone}</Text>
                 <Text style={styles.distance}>{shopData.distance} Km</Text>
             </View>
+
         </TouchableOpacity>
 
     );
@@ -65,5 +67,5 @@ const styles = StyleSheet.create({
         bottom: 10,
         right: 5,
         color: 'red'
-    }
+    },
 });

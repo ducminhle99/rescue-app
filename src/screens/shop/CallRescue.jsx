@@ -2,10 +2,11 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { rescueApi } from '../api/rescueApi';
+import { rescueApi } from '../../api/rescueApi';
 
-const CustomModal = (props) => {
-    const { sendRescue } = props;
+const CallRescue = (props) => {
+    const { navigation, route } = props;
+    const { shopId } = route.params;
     const [title, setTitle] = useState();
     const [descripton, setDescripton] = useState();
     const [address, setAddress] = useState();
@@ -23,17 +24,17 @@ const CustomModal = (props) => {
                     "latitude": currenLocation.coords.latitude,
                     "longitude": currenLocation.coords.longitude,
                     "name": address
-                }
+                },
+                'shopId': shopId
             })
-
-            sendRescue();
+            navigation.goBack();
         } catch (error) {
             console.log(error)
         }
 
     }
     return (
-        <ScrollView >
+        <View style={styles.container}>
             <TextInput
                 onChangeText={(text) => setTitle(text)}
                 label="Nhập tiêu đề"
@@ -55,27 +56,29 @@ const CustomModal = (props) => {
                 left={<TextInput.Icon name='map' />}
             />
             <Button style={styles.button} mode='outlined' onPress={pressRecue}><Text>cứu hộ</Text></Button>
-            <Button style={styles.button} mode='outlined' onPress={() => { sendRescue() }}><Text>huỷ</Text></Button>
-        </ScrollView>
+            <Button style={styles.button} mode='outlined' onPress={() => navigation.goBack()}><Text>huỷ</Text></Button>
+        </View>
     );
 };
 
-export default CustomModal;
+export default CallRescue;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingHorizontal: 10,
+        backgroundColor: '#fff',
+        paddingTop: 50
+    },
     InputText: {
         backgroundColor: '#fff',
         fontSize: 14
     },
     button: {
-        flex: 1,
         marginHorizontal: 80,
         borderRadius: 24,
         marginVertical: 10,
         borderWidth: 2,
         borderColor: 'blue'
     },
-    Image: {
-        height: 200,
-    }
 });

@@ -13,8 +13,8 @@ export const rescueApi = {
     },
 
     // user 
-    getUserDetail: () => {
-        const url = "/users";
+    getUserDetail: (id) => {
+        const url = "/users/" + id;
         return axiosClient.get(url);
     },
     getCurrentUser: () => {
@@ -26,12 +26,6 @@ export const rescueApi = {
         const url = "/users";
         return axiosClient.put(url, user)
     },
-
-    // files
-
-    //...........................................................
-
-    //..............................................
 
     // categories
     fetchCategories: () => {
@@ -55,6 +49,35 @@ export const rescueApi = {
 
     fetchService: (id) => {
         const url = "/services/" + id;
+        return axiosClient.get(url);
+    },
+    // rescue
+    fetchRescue: () => {
+        const url = '/rescue'
+        return axiosClient.get(url);
+    },
+    createRescue: (data) => {
+        const url = '/rescue'
+        return axiosClient.post(url, data);
+    },
+    createListRescue: (data) => {
+        const url = '/rescue/list'
+        return axiosClient.post(url, data);
+    },
+
+    //appointnent
+    createAppointment: (data) => {
+        const url = '/users/appointments';
+        return axiosClient.post(url, data);
+    },
+    fetchAppointment: () => {
+        const url = '/users/appointments';
+        return axiosClient.get(url);
+    },
+
+    // noti
+    fetchNoti: () => {
+        const url = '/users/notifications';
         return axiosClient.get(url);
     }
 

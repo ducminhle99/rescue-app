@@ -26,7 +26,7 @@ const getNoti = async () => {
 
     const tokenData = await Notifications.getExpoPushTokenAsync();
     const token = tokenData.data;
-    // console.log(token)
+
     return token;
 }
 

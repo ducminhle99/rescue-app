@@ -3,17 +3,19 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import colors from '../constant/colors';
-import ChatScreen from '../screens/chat/ChatScreen';
+import AppointnentList from '../screens/appointnent/AppointnentList';
 import HomeScreen from '../screens/home/HomeScreen';
-import ListShopScreen from '../screens/shop/ListShopScreen';
-import ShopDetailScreen from '../screens/shop/ShopDetailScreen';
+import NewCarScreen from '../screens/myCar/NewCarScreen';
+import Notification from '../screens/noti/Notification';
 import ChangePassword from '../screens/profile/ChangePassword';
 import EditProfileScreen from '../screens/profile/EditProfileScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import RescueListScreen from '../screens/rescue/RescueList';
 import RescueScreen from '../screens/rescue/RescueScreen';
-import NewCarScreen from '../screens/myCar/NewCarScreen';
+import Appointment from '../screens/shop/Appointment ';
+import CallRescue from '../screens/shop/CallRescue';
+import ListShopScreen from '../screens/shop/ListShopScreen';
+import ShopDetailScreen from '../screens/shop/ShopDetailScreen';
 
 const CustomButtonBar = ({ children, onPress }) => (
     <TouchableOpacity
@@ -44,9 +46,9 @@ const CustomButtonBar = ({ children, onPress }) => (
 
 // group stack screens
 const HomeStack = createStackNavigator();
-const ChatStack = createStackNavigator();
+const NotificationStack = createStackNavigator();
 const RescueStack = createStackNavigator();
-const ScheduleStack = createStackNavigator();
+const AppointnentStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
 // screen component
@@ -74,19 +76,33 @@ const Home = () => (
                 title: 'Dịch vụ'
             }}
         />
+        <HomeStack.Screen
+            component={Appointment}
+            name='Appointment'
+            options={{
+                title: 'Đặt lịch hẹn dịch vụ'
+            }}
+        />
+        <HomeStack.Screen
+            component={CallRescue}
+            name='CallRescue'
+            options={{
+                title: 'Gọi cứu hộ'
+            }}
+        />
     </HomeStack.Navigator>
 )
 
-const Chat = () => (
-    <ChatStack.Navigator >
-        <ChatStack.Screen
-            component={ChatScreen}
-            name='ChatScreen'
+const Noti = () => (
+    <NotificationStack.Navigator >
+        <NotificationStack.Screen
+            component={Notification}
+            name='Notification'
             options={{
-                headerShown: false
+                title: "Thông báo"
             }}
         />
-    </ChatStack.Navigator>
+    </NotificationStack.Navigator>
 )
 
 const Rescue = () => (
@@ -108,16 +124,16 @@ const Rescue = () => (
     </RescueStack.Navigator>
 )
 
-const Schedule = () => (
-    <ScheduleStack.Navigator >
-        <ScheduleStack.Screen
-            component={HomeScreen}
-            name='ScheduleScreen'
+const Appoint = () => (
+    <AppointnentStack.Navigator >
+        <AppointnentStack.Screen
+            component={AppointnentList}
+            name='AppointnentList'
             options={{
-                headerShown: false
+                title: 'Lịch hẹn'
             }}
         />
-    </ScheduleStack.Navigator>
+    </AppointnentStack.Navigator>
 )
 
 
@@ -174,11 +190,11 @@ const BottomNav = () => {
                     )
                 }}
             />
-            <Tab.Screen component={Chat} name='Chat'
+            <Tab.Screen component={Noti} name='noti'
                 options={{
-                    title: 'Chat',
+                    title: 'Thông báo',
                     tabBarIcon: ({ color, size }) => (
-                        <AntDesign name='message1' size={size} color={color} />
+                        <AntDesign name='bells' size={size} color={color} />
                     )
                 }}
             />
@@ -187,10 +203,8 @@ const BottomNav = () => {
                     title: 'Cứu hộ',
                     tabBarButton: (props) => <CustomButtonBar {...props} />
                 }}
-
-
             />
-            <Tab.Screen component={Schedule} name='Schedule'
+            <Tab.Screen component={Appoint} name='Appoint'
                 options={{
                     title: 'Lịch',
                     tabBarIcon: ({ color, size }) => (

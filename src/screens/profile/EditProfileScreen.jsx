@@ -50,7 +50,7 @@ const EditProfileScreen = ({ navigation }) => {
 
     const updateUser = async () => {
         const image = await uploadAvatar(avatar);
-        console.log(image);
+        // console.log(image);
         try {
             const userRes = await rescueApi.updateUser({
                 fullName: fullName,
@@ -58,7 +58,7 @@ const EditProfileScreen = ({ navigation }) => {
                 phone: phone,
                 imageUrl: image
             })
-            console.log(userRes);
+            // console.log(userRes);
             const action = setUser({ user: userRes });
             dispatch(action);
             navigation.navigate('ProfileScreen');
@@ -108,12 +108,11 @@ const EditProfileScreen = ({ navigation }) => {
                     <TextInput mode='flat' value={phone} style={styles.input_text} keyboardType='numeric' onChangeText={text => setPhone(text)} />
 
                     <Text style={styles.lable}>email</Text>
-                    <TextInput mode='flat' value={email} style={styles.input_text} onChangeText={text => setEmail(text)} />
+                    <TextInput mode='flat' editable={false} value={email} style={styles.input_text} onChangeText={text => setEmail(text)} />
 
                 </View>
                 <Button mode='outlined' style={styles.btn_save}
                     onPress={updateUser}
-
                 ><Text>Lưu thông tin</Text></Button>
             </ScrollView>
         </View>

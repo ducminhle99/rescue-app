@@ -1,14 +1,14 @@
 import { AntDesign, Feather } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, View, Dimensions } from 'react-native';
-import { ActivityIndicator, Button } from 'react-native-paper';
-import ShopTabTopNav from '../../navigation/ShopTabTopNav';
-
-import phoneCall from '../../helper/phoneCall';
-import { useSelector } from 'react-redux';
 import { getDistance } from 'geolib';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Button } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 import { rescueApi } from '../../api/rescueApi';
 import colors from '../../constant/colors';
+import { IMAGE_URL } from '../../constant/const';
+import phoneCall from '../../helper/phoneCall';
+import ShopTabTopNav from '../../navigation/ShopTabTopNav';
 const { height, width } = Dimensions.get("window");
 const ShopDetailScreen = (props) => {
     const { route, navigation } = props;
@@ -29,7 +29,7 @@ const ShopDetailScreen = (props) => {
             setData(shopDetail)
         }
         fetchShop();
-    }, [])
+    }, [id])
 
     if (!data) return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.mainColor }}>
@@ -48,7 +48,7 @@ const ShopDetailScreen = (props) => {
                         ? (<ImageBackground style={styles.banner} source={require('../../../assets/avatar.jpg')} blurRadius={5}>
                             <Text style={styles.title}>{data.name}</Text>
                         </ImageBackground>)
-                        : (<ImageBackground style={styles.banner} source={{ uri: data.imageUrl }} blurRadius={5}>
+                        : (<ImageBackground style={styles.banner} source={{ uri: IMAGE_URL + data.imageUrl }} blurRadius={5}>
                             <Text style={styles.title}>{data.name}</Text>
                         </ImageBackground>)
                     }
@@ -64,15 +64,13 @@ const ShopDetailScreen = (props) => {
                             borderWidth: 4,
                             borderColor: '#fff',
                             borderRadius: 20,
-                        }} />) : (<Image source={{ uri: data.imageUrl }} style={{
+                        }} />) : (<Image source={{ uri: IMAGE_URL + data.imageUrl }} style={{
                             width: 150,
                             height: 150,
                             borderWidth: 4,
                             borderColor: '#fff',
                             borderRadius: 20,
                         }} />)}
-
-
                     </View>
                     <View style={styles.contact}>
                         <Button mode='outlined' style={styles.contact_btn, { flex: 6 }}
@@ -82,15 +80,15 @@ const ShopDetailScreen = (props) => {
                             <Text> {data.phone}</Text>
                         </Button>
                         <Button mode='outlined' style={styles.contact_btn, { flex: 1 }}
-                            onPress={() => alert('call')}
+                            onPress={() => navigation.push('Appointment', { shopId: data.id })}
                         >
-                            <AntDesign name='message1' size={16} color='black' />
+                            <AntDesign name='pluscircleo' size={16} color='black' />
                         </Button>
 
                         <Button mode='outlined' style={styles.contact_btn, { flex: 1 }}
-                            onPress={() => alert('call')}
+                            onPress={() => navigation.push('CallRescue', { shopId: data.id })}
                         >
-                            <AntDesign name="bars" size={16} color="black" />
+                            <Text style={{ color: 'red', fontWeight: 'bold' }}>sos</Text>
                         </Button>
                     </View>
                 </View>

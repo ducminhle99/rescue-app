@@ -1,11 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListRepairShop from '../../components/shopCard/ListRepairShop';
+import { useSelector } from 'react-redux';
+import { searchByCategory } from '../../helper/searchShop';
 
 const RescueList = ({ navigation }) => {
+    const shopList = useSelector(state => state.repairShop);
+    const list = searchByCategory(shopList, 1)
+    // console.log(list);
+
     return (
         <View style={styles.container}>
-            <ListRepairShop pressCard={(data) => navigation.navigate('ShopDetail', { data })} horizontal={false} />
+            <ListRepairShop shopList={list} navigation={navigation} horizontal={false} />
         </View>
     );
 };
