@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
@@ -194,7 +194,7 @@ const BottomNav = () => {
                 options={{
                     title: 'Thông báo',
                     tabBarIcon: ({ color, size }) => (
-                        <AntDesign name='bells' size={size} color={color} />
+                        <Feather name='bell' size={size} color={color} />
                     )
                 }}
             />
