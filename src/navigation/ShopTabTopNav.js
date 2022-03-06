@@ -5,6 +5,7 @@ import { rescueApi } from '../api/rescueApi';
 import { AirbnbRating } from 'react-native-ratings';
 import { Divider } from 'react-native-paper';
 import Service from '../components/shop/Service'
+import RatingCard from '../components/ratings/RatingCard';
 const Tab = createMaterialTopTabNavigator();
 function About(props) {
     const { data, rating } = props;
@@ -21,6 +22,11 @@ function About(props) {
                     defaultRating={rating}
                     size={20}
                 />
+                <RatingCard />
+                <RatingCard />
+                <RatingCard />
+                <RatingCard />
+                <View style={{ height: 300 }} ></View>
             </ScrollView>
         </View>
     );

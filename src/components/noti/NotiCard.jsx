@@ -21,7 +21,7 @@ const NotiCard = (props) => {
         }
         getData()
     }, [])
-    console.log(data);
+    // console.log(data);
     if (shop) return (
         <View style={styles.container}>
             <Text style={styles.name}>{shop.name}</Text>

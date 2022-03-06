@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import Item from '../../components/Item';
 import { logout1, logout } from '../../redux/userSlice'
@@ -19,7 +19,12 @@ const ProfileScreen = ({ navigation }) => {
     }
 
     // console.log(user);
-    return (
+    if (!user) return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#fff" }}>
+            <ActivityIndicator animating={true} color='blue' size={100} />
+        </View>
+    )
+    else return (
         <View style={styles.container}>
             <StatusBar style='auto' />
             <ScrollView

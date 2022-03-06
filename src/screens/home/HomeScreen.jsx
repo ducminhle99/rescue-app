@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
     const shopList = useSelector(state => state.repairShop);
     const location = useSelector(state => state.location);
     Notifications.addNotificationResponseReceivedListener(noti => {
-        console.log(noti.notification.date);
+        // console.log(noti.notification.date);
         navigation.navigate('noti')
     })
     useFocusEffect(
