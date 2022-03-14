@@ -6,7 +6,7 @@ import { rescueApi } from '../../api/rescueApi';
 import phoneCall from '../../helper/phoneCall';
 
 const NotiCard = (props) => {
-    const { data } = props;
+    const { navigation, data } = props;
     const [shop, setShop] = useState();
     const date = new Date(data.updatedAt);
     const time = date.toLocaleDateString() + ' : ' + date.toLocaleTimeString();
@@ -28,12 +28,24 @@ const NotiCard = (props) => {
             <Text style={styles.title}>{data.title}</Text>
             <Text style={styles.description}>{data.description}</Text>
             <Text style={styles.time}>{time}</Text>
-            <Button mode='outlined' style={{ width: 200 }}
-                onPress={() => phoneCall(shop.phone)}
-            >
-                <Feather name="phone-call" size={16} color="blue" />
-                <Text> {shop.phone}</Text>
-            </Button>
+            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                <Button
+                    mode='outlined'
+                    onPress={() => phoneCall(shop.phone)}
+                    style={{ flex: 1 }}
+                >
+                    <Feather name="phone-call" size={16} color="blue" />
+                    <Text> {shop.phone}</Text>
+                </Button>
+                <Button mode='outlined'
+                    style={{ flex: 1 }}
+                    onPress={() => navigation.navigate('ShopDetail', { id: shop.id })}
+                >
+                    <Text>xem cơ sở</Text>
+                </Button>
+            </View>
+
+
         </View>
     )
     else {
@@ -69,6 +81,10 @@ const styles = StyleSheet.create({
     },
     description: {
         color: 'black'
+    },
+    time: {
+        fontSize: 12,
+        color: 'red'
     },
     btn_group: {
         flexDirection: 'row',

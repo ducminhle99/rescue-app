@@ -6,7 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { rescueApi } from '../../api/rescueApi';
 import NotiCard from '../../components/noti/NotiCard';
-const Notification = () => {
+const Notification = ({ navigation }) => {
     const [notiList, setNotiList] = useState([]);
     const user = useSelector(state => state.user);
     const userId = user.user.id;
@@ -25,22 +25,10 @@ const Notification = () => {
         }, [])
     )
 
-    // useEffect(() => {
-    //     const fetchNoti = async () => {
-    //         try {
-    //             const res = await rescueApi.fetchNoti();
-    //             setNotiList(res);
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     }
-    //     fetchNoti();
-    // }, [])
-    // console.log(notiList);
     return (
         <View style={styles.container}>
             {notiList.map(noti => {
-                return (<NotiCard key={noti.id} data={noti} />)
+                return (<NotiCard navigation={navigation} key={noti.id} data={noti} />)
             })
             }
         </View>

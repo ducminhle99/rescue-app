@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { useFocusEffect } from '@react-navigation/native';
 
-const AppointnentList = () => {
+const AppointnentList = ({ navigation }) => {
     const appointnents = useSelector(state => state.appointnent)
     const dispatch = useDispatch();
     const [isModalVisible, setModalVisible] = useState(false);
@@ -41,7 +41,7 @@ const AppointnentList = () => {
             >
                 {appointnents.map(appointnent => {
                     return (
-                        <AppointnentCard key={appointnent.id} appointnent={appointnent} showModal={toggleModal} />
+                        <AppointnentCard navigation={navigation} key={appointnent.id} appointnent={appointnent} showModal={toggleModal} />
                     )
                 })}
             </ScrollView>
@@ -52,7 +52,17 @@ const AppointnentList = () => {
                         onFinishRating={() => console.log('ok')}
                         style={{ paddingVertical: 10 }}
                     />
-                    <Button style={{ width: '30%', marginVertical: 20, borderColor: 'blue', borderWidth: 2, borderRadius: 30 }} mode='outlined' onPress={toggleModal} ><Text>ok</Text></Button>
+                    <Button
+                        style={{
+                            width: '30%',
+                            marginVertical: 20,
+                            borderColor: 'blue',
+                            borderWidth: 2,
+                            borderRadius: 30
+                        }}
+                        mode='outlined'
+                        onPress={toggleModal}
+                    ><Text>ok</Text></Button>
                 </View>
             </Modal>
         </View>

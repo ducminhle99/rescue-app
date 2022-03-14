@@ -73,19 +73,19 @@ const ShopDetailScreen = (props) => {
                         }} />)}
                     </View>
                     <View style={styles.contact}>
-                        <Button mode='outlined' style={styles.contact_btn, { flex: 6 }}
+                        <Button mode='outlined' style={{ flex: 6 }}
                             onPress={() => phoneCall(data.phone)}
                         >
                             <Feather name="phone-call" size={16} color="black" />
                             <Text> {data.phone}</Text>
                         </Button>
-                        <Button mode='outlined' style={styles.contact_btn, { flex: 1 }}
+                        <Button mode='outlined' style={{ flex: 1 }}
                             onPress={() => navigation.push('Appointment', { shopId: data.id })}
                         >
                             <AntDesign name='pluscircleo' size={16} color='black' />
                         </Button>
 
-                        <Button mode='outlined' style={styles.contact_btn, { flex: 1 }}
+                        <Button mode='outlined' style={{ flex: 1 }}
                             onPress={() => navigation.push('CallRescue', { shopId: data.id })}
                         >
                             <Text style={{ color: 'red', fontWeight: 'bold' }}>sos</Text>

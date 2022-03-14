@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Chip } from 'react-native-paper';
 import { AirbnbRating } from 'react-native-ratings';
+import { rescueApi } from '../../api/rescueApi';
 import colors from '../../constant/colors';
 import { IMAGE_URL } from '../../constant/const';
 
@@ -10,8 +11,16 @@ const width_card = width;
 const height_card = width_card * 0.55
 
 const FullShopCard = (props) => {
+    const [rating, setRating] = useState(0);
 
     const { shopData, pressCard } = props;
+    useEffect(() => {
+        const getRating = async () => {
+            const res = await rescueApi.getStatistic(shopData.id);
+            setRating(res.rating);
+        }
+        getRating();
+    }, [])
 
     return (
         <View style={{
@@ -41,7 +50,7 @@ const FullShopCard = (props) => {
                             isDisabled={true}
                             reviews={false}
                             count={5}
-                            defaultRating={shopData.rating}
+                            defaultRating={rating}
                             size={20}
                         />
                     </View>

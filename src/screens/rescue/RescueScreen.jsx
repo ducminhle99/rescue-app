@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux';
 import { rescueApi } from '../../api/rescueApi';
 import Map from '../../components/map/Map';
 import SosButton from '../../components/rescue/SosButton';
+import { searchByCategory } from '../../helper/searchShop';
 
 const RescueScreen = ({ navigation }) => {
     const shopList = useSelector(state => state.repairShop);
     const currenLocation = useSelector(state => state.location);
     const Sos = async () => {
-        const shops = shopList.slice(0, 5);
+        const list = searchByCategory(shopList, 1)
+        const shops = list.slice(0, 5);
         const listId = shops.map(a => a.id)
         try {
             await rescueApi.createListRescue({

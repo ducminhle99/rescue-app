@@ -6,7 +6,7 @@ import phoneCall from '../../helper/phoneCall';
 
 
 const AppointnentCard = (props) => {
-    const { appointnent, showModal } = props;
+    const { navigation, appointnent, showModal } = props;
     const [data, setData] = useState();
     const date = new Date(appointnent.time);
     const time = date.toLocaleDateString() + ' : ' + date.toLocaleTimeString();
@@ -26,7 +26,7 @@ const AppointnentCard = (props) => {
             <Text style={styles.description}>{data.description}</Text>
             <Text style={styles.price}>{time}</Text>
             <View style={styles.btn_group}>
-                <Button mode='outlined' style={styles.contact_btn, { flex: 4 }}
+                <Button mode='outlined' style={{ flex: 4 }}
                     onPress={() => phoneCall(data.repair_shop.phone)}
                 >
                     <Feather name="phone-call" size={16} color="blue" />
@@ -34,16 +34,18 @@ const AppointnentCard = (props) => {
                 </Button>
                 {
                     (data.isConfirmed) ?
-                        (<Button mode='outlined' style={styles.contact_btn, { flex: 2, }}
-                            onPress={showModal}
+                        (<Button mode='outlined' style={{ flex: 2, }}
+
+                            onPress={() => navigation.navigate('ShopDetail', { id: data.repair_shop.id })}
                         >
-                            <Text>Đánh giá</Text>
+                            <Text>xem cơ sở</Text>
 
                         </Button>)
                         : (
-                            <Button mode='outlined' style={styles.contact_btn, { flex: 2 }}
+                            <Button mode='outlined' style={{ flex: 2 }}
+                                onPress={() => navigation.navigate('ShopDetail', { id: data.repair_shop.id })}
                             >
-                                <Text>Đang chờ</Text>
+                                <Text>xem cơ sở</Text>
                             </Button>
                         )
                 }

@@ -45,6 +45,22 @@ export const rescueApi = {
         return axiosClient.get(url)
     },
 
+    // statistic
+    getStatistic: (id) => {
+        const url = "/repairShop/statistic/" + id;
+        return axiosClient.get(url);
+    },
+
+    // ratings
+    getRatings: (id) => {
+        const url = "/users/ratings/" + id;
+        return axiosClient.get(url);
+    },
+    createRating: (data) => {
+        const url = "/users/ratings";
+        return axiosClient.post(url, data);
+    },
+
     // service
 
     fetchService: (id) => {
@@ -80,5 +96,6 @@ export const rescueApi = {
         const url = '/users/notifications';
         return axiosClient.get(url);
     }
+
 
 }
