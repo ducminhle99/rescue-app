@@ -21,13 +21,13 @@ const EditProfileScreen = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [avatar, setAvatar] = useState('');
     const [isChangeImg, setIsChangeImg] = useState(false);
-
     useEffect(() => {
         setFullname(user.fullName);
         setEmail(user.email);
         setPhone(user.phone);
         setAvatar(user.imageUrl)
     }, [])
+    // console.log({ isChangeImg }, IMAGE_URL + avatar);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -77,7 +77,6 @@ const EditProfileScreen = ({ navigation }) => {
                     {(isChangeImg)
                         ? (<ImageBackground source={{ uri: avatar }} style={{ height: 200 }} blurRadius={10} />)
                         : (<ImageBackground source={{ uri: IMAGE_URL + avatar }} style={{ height: 200 }} blurRadius={10} />)
-
                     }
 
                     <View style={{ alignSelf: 'center', position: 'absolute', top: 100 }}>

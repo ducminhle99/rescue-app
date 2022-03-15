@@ -1,12 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { AirbnbRating } from 'react-native-ratings';
+import { Avatar } from 'react-native-paper';
+import { IMAGE_URL } from '../../constant/const';
 
 const RatingCard = (props) => {
     const { data } = props;
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'blue' }}>{data.user.fullName}</Text>
+            <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                <Avatar.Image size={34} source={{ uri: IMAGE_URL + data.user.imageUrl }} style={{ marginRight: 10 }} />
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'blue' }}>{data.user.fullName}</Text>
+            </View>
             <View style={{ height: 25 }}>
                 <View style={styles.rating}>
                     <AirbnbRating

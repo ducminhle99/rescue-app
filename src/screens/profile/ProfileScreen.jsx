@@ -1,16 +1,23 @@
 import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import Item from '../../components/Item';
 import { logout1, logout } from '../../redux/userSlice'
 import { IMAGE_URL } from '../../constant/const'
+import { useFocusEffect } from '@react-navigation/native';
 const ProfileScreen = ({ navigation }) => {
     const dispath = useDispatch();
-
-    const user = useSelector(state => state.user.user);
+    const [user, setUser] = useState({});
+    const userState = useSelector(state => state.user.user);
+    // console.log(user);
+    useFocusEffect(
+        useCallback(() => {
+            setUser(userState);
+        }, [userState])
+    )
 
     const handleLogout = () => {
         const action = logout();
